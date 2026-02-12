@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Rocío - Machala</title>
+    <link rel="stylesheet" href="tienda rocio.css">
+    <style>
+        /* --- NUEVA PALETA DE COLORES: AZUL REAL & NARANJA --- */
+        :root {
+            --principal: #2980b9;    /* Azul Real */
+            --acento: #e67e22;       /* Naranja Vibrante */
+            --fondo-gris: #f4f7f6;
+            --texto-oscuro: #2c3e50;
+        }
+
+        body {
+            background-color: var(--fondo-gris);
+            color: var(--texto-oscuro);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
+        /* --- NAVEGACIÓN MODERNA --- */
+        nav {
+            background-color: var(--principal);
+            padding: 5px 25px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            display: block;
+            padding: 5px 0;
+            transition: transform 0.3s;
+        }
+        
+        .logo-img:hover { transform: scale(1.05); }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .nav-links li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- ESTILO DE LA HISTORIA (AZUL Y NARANJA) --- */
+        .historia-contenedor {
+            display: flex;
+            align-items: stretch;
+            gap: 40px;
+            margin-top: 50px;
+            padding: 30px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .historia-texto-wrapper {
+            flex: 1.2;
+            display: flex;
+            gap: 20px;
+        }
+
+        .linea-adorno {
+            width: 8px;
+            background: linear-gradient(to bottom, var(--principal), var(--acento));
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .historia-contenido {
+            text-align: justify;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .historia-contenido h3 {
+            margin-top: 0;
+            color: var(--principal);
+            font-size: 26px;
+        }
+
+        .historia-imagen {
+            flex: 0.8;
+        }
+
+        .historia-imagen img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 5px solid white;
+        }
+
+        .pie-historia {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Botón estilo Naranja */
+        .btn-enviar-wa, .btn-add {
+            background-color: var(--acento) !important;
+            color: white !important;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        .btn-enviar-wa:hover, .btn-add:hover {
+            background-color: #d35400 !important;
+            transform: translateY(-2px);
+        }
+
+        /* --- AQUÍ ESTÁ LA INTEGRACIÓN DEL MENÚ DESPLEGABLE --- */
+        .dropdown { position: relative; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1001;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+            border-top: 3px solid var(--acento);
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown-content a {
+            color: #2c3e50 !important; /* Texto oscuro para que se vea */
+            padding: 12px 16px !important;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+            transition: background 0.3s;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1 !important;
+            color: var(--principal) !important;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropbtn {
+            cursor: pointer;
+        }
+
+        @media (max-width: 850px) {
+            .historia-contenedor { flex-direction: column; }
+            .nav-container { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head><body>
+
+    <nav>
+    <div class="nav-container">
+        <div class="logo-espacio">
+            <img src="Tienda Roció.PNG" alt="Logo Tienda Rocío" class="logo-img">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="mostrarSeccion('inicio')">INICIO</a></li>
+
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">PRODUCTOS ▼</a>
+                <div class="dropdown-content">
+                    <a href="#" onclick="mostrarCategoria('viveres')">Víveres y Snacks</a>
+                    <a href="#" onclick="mostrarCategoria('bebidas')">Bebidas</a>
+                    <a href="#" onclick="mostrarCategoria('aseo')">Aseo</a>
+                    <a href="#" onclick="mostrarCategoria('desechables')">Desechables</a>
+                </div>
+            </li>
+            <li><a href="#" onclick="mostrarSeccion('pedidos')">MI PEDIDO</a></li>
+            <li><a href="#" onclick="mostrarSeccion('ubicacion')">UBICACIÓN</a></li>
+            <li><a href="#" onclick="mostrarSeccion('nosotros')">NOSOTROS</a></li>
+        </ul>
+    </div>
+</nav>
+
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    <section id="inicio" class="tab-content active">
+        <div class="hero" style="
+            text-align: center; 
+            padding: 80px 20px; 
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('fondo de la tienda.AVIF'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; /* Esto crea un efecto elegante al bajar la página */
+            border-radius: 25px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        ">
+            <h2 style="color: white; font-size: 38px; margin-bottom: 10px; text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">
+                Bienvenidos a la tienda de víveres Rocío
+            </h2>
+            
+            <p style="font-size: 1.2rem; color: #f0f0f0; margin-bottom: 30px; text-shadow: 1px 1px 5px rgba(0,0,0,0.7);">
+                Calidad al mejor precio en Machala, sector 18 de Octubre.
+            </p>
+            
+            <button class="btn-enviar-wa" style="
+                width: auto; 
+                padding: 15px 40px; 
+                cursor: pointer; 
+                font-size: 1rem; 
+                text-transform: uppercase; 
+                letter-spacing: 1px;
+            " onclick="mostrarCategoria('viveres')">
+                VER CATÁLOGO DE PRODUCTOS
+            </button>
+        </div>
+
+            <div class="historia-contenedor">
+                <div class="historia-texto-wrapper">
+                    <div class="linea-adorno"></div>
+                    <div class="historia-contenido">
+                        <h3>Nuestra Historia: Más que una Tienda, un Hogar</h3>
+                        <p>La historia de la **Tienda de Víveres "Rocío"** se escribe con el sudor y la esperanza de quienes creemos que el servicio es la forma más noble de unión. Todo comenzó hace décadas en una esquina del sector 18 de Octubre, cuando la Sra. Rocío decidió abrir un pequeño espacio para brindar el sustento diario a sus vecinos.</p>
+                        
+                        <p>En aquellos primeros días, no había tecnología; solo el aroma del café fresco y una libreta donde se anotaba no solo lo que se debía, sino también los nombres e historias de cada familia. Fuimos testigos de cómo crecían los niños del barrio y de las alegrías compartidas.</p>
+                        
+                        <p>Hoy, este sitio web es el puente entre ese pasado lleno de esfuerzo manual y un futuro digital que nos permite seguir cuidándote sin perder nuestra esencia.</p>
+                        
+                        <p>Gracias por permitirnos ser parte de tu mesa. Seguiremos aquí trabajando para que lo mejor de nuestra tierra llegue a tu hogar con el amor de siempre.</p>
+                        
+                        <p class="pie-historia">Nuestra fachada original, testigo de años de servicio en Machala.</p>
+                    </div>
+                </div>
+                <div class="historia-imagen">
+                    <img src="Tienda.WEBP" alt="Fachada Tienda Rocío">
+                </div>
+            </div>
+        </section>
+
+        <section id="productos" class="tab-content">
+            <h2 id="titulo-cat" style="color: var(--principal); text-align: center;">NUESTROS PRODUCTOS</h2>
+            <div id="grid-dinamico" class="grid-productos"></div>
+        </section>
+
+        <section id="pedidos" class="tab-content">
+            <h2 style="color: var(--principal);">Mi Lista de Pedido</h2>
+            <div id="lista-carrito" class="carrito-contenedor">
+                <p id="carrito-vacio">Aún no has añadido productos.</p>
+            </div>
+            <div id="seccion-formulario" style="display: none; margin-top: 20px; background: white; padding: 25px; border-radius: 15px;">
+                <h3 style="color: var(--principal);">Datos para la Entrega</h3>
+                <form id="formFinal">
+                    <input type="text" id="nombre_u" placeholder="Tu nombre completo" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <input type="tel" id="tel_u" placeholder="Celular (Ej: 0912345678)" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <input type="text" id="dir_u" placeholder="Dirección en Machala" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <button type="button" class="btn-enviar-wa" style="width: 100%; padding: 15px; cursor: pointer;" onclick="enviarWhatsAppFinal()">Confirmar Pedido vía WhatsApp</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="ubicacion" class="tab-content">
+            <div style="background: white; padding: 30px; border-radius: 20px;">
+                <h2 style="color: var(--principal);">Horario de Atención</h2>
+                <p><strong>Lunes a Viernes:</strong> 8:00 a 21:00</p>
+                <p><strong>Sábado a Domingo:</strong> 8:00 a 18:00</p>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                <h2 style="color: var(--principal);">Ubicación</h2>
+                <p>📍 Sector 18 de Octubre, Machala, El Oro.</p>
+                <div class="mapa-contenedor" style="
+    width: 100%; 
+    max-width: 1000px; 
+    margin: 20px auto; 
+    border-radius: 20px; 
+    overflow: hidden; 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border: 5px solid white;
+">
+    <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15933.31464301552!2d-79.9691!3d-3.2656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x90330f994784a929%3A0x676943644f243026!2s18%20de%20Octubre%2C%20Machala!5e0!3m2!1ses!2sec!4v1700000000000!5m2!1ses!2sec" 
+        width="100%" 
+        height="450" 
+        style="border:0; display: block;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <h3>Contacto Directo</h3>
+                    <a href="https://wa.me/593992254482" target="_blank">
+                        <img src="imagenen de whatsapp.PNG" alt="WhatsApp" style="width: 60px; transition: 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="nosotros" class="tab-content">
+            <div style="text-align: center; background: white; padding: 40px; border-radius: 20px;">
+                <h2 style="color: var(--principal);">Sobre las Autoras</h2>
+                <p style="max-width: 700px; margin: 0 auto 30px;">Este proyecto de grado nace del deseo de retribuir a nuestra comunidad, uniendo la tradición de la Tienda Rocío con las herramientas tecnológicas actuales.</p>
+                <img src="las autoras.JPEG" alt="Autoras" style="width:300px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <p style="margin-top: 15px; font-weight: bold; color: #777;">Autoras del proyecto de grado - 2025-2026</p>
+            </div>
+        </section>
+    </div>
+
+    <div id="modalP" class="modal">
+        <div class="modal-content" style="border-radius: 20px; overflow: hidden;">
+            <span class="close" onclick="cerrarModal()" style="padding: 15px;">×</span>
+            <div class="modal-body" style="padding: 20px; display: flex; gap: 20px; align-items: center;">
+                <img id="m-img" src="" width="180" style="border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div class="modal-info">
+                    <h3 id="m-tit" style="color: var(--principal); margin-top: 0;"></h3>
+                    <p id="m-pre" style="color: var(--acento); font-size: 28px; font-weight: bold; margin: 10px 0;"></p>
+                    <label>Cantidad:</label>
+                    <input type="number" id="m-cant" value="1" min="1" style="width: 60px; padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+                    <br><br>
+                    <button class="btn-add" onclick="agregarAlCarrito()" style="padding: 12px 25px; width: 100%; cursor: pointer;">Añadir al Pedido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let carrito = [];
+
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        const datos = {
+            viveres: [
+                {n: 'Arroz Especial CARMIJAR, 2Lb', p: '1.20', i: 'arroz.JPG'},
+                {n: 'Azúcar Blanca San Carlos, 1kg', p: '1.13', i: 'azucar.JPG'},
+                {n: 'Sal de Mesa CRIS-SAL, 1Kg', p: '0.55', i: 'sal.PNG'},
+                {n: 'Fideo Oriental, 200g', p: '0.99', i: 'fideos.JPG'},
+                {n: 'Aceite Girasol, 1L', p: '3.15', i: 'aceite.JPG'},
+                {n: 'Harina YA, 1kg', p: '2.24', i: 'harina.JPG'},
+                {n: 'Avena Hojuelas YA, 1000g', p: '2.30', i: 'avena.JPG'},
+                {n: 'Lenteja Natural Facundo, 500g', p: '2.75', i: 'lenteja.PNG'},
+                {n: 'Fréjol Rojo, 500g', p: '2.85', i: 'frejol.JPG'},
+                {n: 'Atún REAL Aceite, 160g', p: '1.35', i: 'atun.JPG'},
+                {n: 'Galletas RICAS, 232g', p: '1.61', i: 'galletas.JPG'},
+                {n: 'Chocolate Universal, 100g', p: '1.00', i: 'chocolate.PNG'},
+                {n: 'Papas Ruffles Natural, 42g', p: '0.50', i: 'papas fritas.WEBP'},
+                {n: 'MiniBum Surtidos, 400g', p: '2.25', i: 'caramelo.JPG'}
+            ],
+            bebidas: [
+                {n: 'Agua Dasani, 1000ml', p: '0.60', i: 'agua.JPG'},
+                {n: 'Coca Cola, 300ml', p: '0.50', i: 'gaseosa.WEBP'},
+                {n: 'Del Valle Frut, 600ml', p: '1.00', i: 'jugo.WEBP'},
+                {n: 'Red Bull, 250ml', p: '2.10', i: 'Bebida energética.JPG'},
+                {n: 'Leche Nutri, 1L', p: '1.40', i: 'leche.JPG'},
+                {n: 'Yogurt TONI, 950g', p: '3.33', i: 'Yogurt.WEBP'}
+            ],
+            aseo: [
+                {n: 'Jabón JOLLY, 100g', p: '0.75', i: 'jabon.WEBP'},
+                {n: 'Detergente GOL, 500g', p: '1.00', i: 'detergente.JPG'},
+                {n: 'Cloro CLOROX, 1040g', p: '1.55', i: 'cloro.AVIF'},
+                {n: 'Fabuloso, 1L', p: '4.30', i: 'desinfectante.WEBP'},
+                {n: 'Papel Higiénico NOBLE, 4u', p: '0.69', i: 'papel higienico.JPG'},
+                {n: 'Pasta Dental Colgate, 75ml', p: '1.55', i: 'pasta dental.JPG'},
+                {n: 'Shampoo H&S, 250ml', p: '6.00', i: 'shampoo.AVIF'}
+            ],
+            desechables: [
+                {n: 'Vaso Desechable 12Oz', p: '1.30', i: 'vasos desechables.JPG'},
+                {n: 'Plato PLASTIUTIL N8, 25u', p: '1.68', i: 'platos desechables.JPG'},
+                {n: 'Cuchara Postre, 50u', p: '1.00', i: 'cubiertos plásticos.JPG'},
+                {n: 'Servilleta Dolly, 75u', p: '0.90', i: 'servilletas.JPG'},
+                {n: 'Fundas HG Jumbo', p: '2.25', i: 'funda plástica.JPG'},
+                {n: 'Papel Aluminio, 10mt', p: '2.00', i: 'papel aluminio.AVIF'}
+            ]
+        };
+
+        function mostrarCategoria(c) {
+            mostrarSeccion('productos');
+            const g = document.getElementById('grid-dinamico');
+            g.innerHTML = '';
+            document.getElementById('titulo-cat').innerText = c.toUpperCase();
+            datos[c].forEach(p => {
+                g.innerHTML += `
+                    <div class="card" style="background:white; border-radius:15px; padding:15px; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+                        <img src="${p.i}" alt="${p.n}" style="width:100%; height:150px; object-fit:contain; border-radius:10px;">
+                        <h4 style="font-size:0.9rem; margin:10px 0;">${p.n}</h4>
+                        <p style="color:var(--principal); font-weight:bold;">$${p.p}</p>
+                        <button onclick="abrirModal('${p.n}', '${p.p}', '${p.i}')" style="background:var(--principal); color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; width:100%;">AÑADIR</button>
+                    </div>`;
+            });
+        }
+
+        function abrirModal(n,p,i) {
+            document.getElementById('m-tit').innerText = n;
+            document.getElementById('m-pre').innerText = '$'+p;
+            document.getElementById('m-img').src = i;
+            document.getElementById('m-cant').value = 1;
+            document.getElementById('modalP').style.display = 'block';
+        }
+
+        function cerrarModal() { document.getElementById('modalP').style.display='none'; }
+
+        function agregarAlCarrito() {
+            const nombre = document.getElementById('m-tit').innerText;
+            const precio = parseFloat(document.getElementById('m-pre').innerText.replace('$', ''));
+            const cantidad = parseInt(document.getElementById('m-cant').value);
+            if(cantidad > 0) {
+                carrito.push({ nombre, precio, cantidad });
+                actualizarInterfazCarrito();
+                cerrarModal();
+            }
+        }
+
+        function actualizarInterfazCarrito() {
+            const contenedor = document.getElementById('lista-carrito');
+            const formSec = document.getElementById('seccion-formulario');
+            if(carrito.length === 0) {
+                contenedor.innerHTML = '<p id="carrito-vacio">Aún no has añadido productos.</p>';
+                formSec.style.display = 'none';
+                return;
+            }
+            formSec.style.display = 'block';
+            contenedor.innerHTML = '';
+            let t = 0;
+            carrito.forEach((p, idx) => {
+                let sub = p.precio * p.cantidad;
+                t += sub;
+                contenedor.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
+                    <span>${p.cantidad}x ${p.nombre}</span>
+                    <span>$${sub.toFixed(2)} <button onclick="carrito.splice(${idx},1); actualizarInterfazCarrito();" style="border:none; background:none; cursor:pointer;">❌</button></span>
+                </div>`;
+            });
+            contenedor.innerHTML += `<div style="font-weight:bold; font-size:1.2rem; text-align:right; color:var(--principal); margin-top:15px;">TOTAL: $${t.toFixed(2)}</div>`;
+        }
+
+        function enviarWhatsAppFinal() {
+            const nom = document.getElementById('nombre_u').value;
+            const tel = document.getElementById('tel_u').value;
+            const dir = document.getElementById('dir_u').value;
+            if(!nom || !dir || !tel || !/^09\d{8}$/.test(tel)) { alert("Por favor, ingresa tus datos correctamente."); return; }
+            let lista = ""; let total = 0;
+            carrito.forEach(p => {
+                lista += `• ${p.cantidad}x ${p.nombre} ($${(p.precio * p.cantidad).toFixed(2)})\n`;
+                total += (p.precio * p.cantidad);
+            });
+            const msg = `Hola, soy ${nom}.\n*Pedido Tienda Rocío:*\n${lista}*Total: $${total.toFixed(2)}*\nDirección: ${dir}\nTel: ${tel}`;
+            window.open(`https://wa.me/593992254482?text=${encodeURIComponent(msg)}`);
+        }
+    </script>
+</body>
+</html>
